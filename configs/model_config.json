@@ -1,0 +1,129 @@
+{
+  "model_architecture": {
+    "name": "NexusFusion",
+    "version": "1.0.0",
+    "description": "Multi-Modal Fusion Architecture for Verifiably Safe Cooperative Driving",
+    "total_parameters": "15.6M",
+    "components": {
+      "mmf_gnn": {
+        "name": "Multi-Modal Fusion Graph Neural Network",
+        "parameters": "8.2M",
+        "embed_dim": 256,
+        "depth": 6,
+        "num_heads": 8,
+        "dropout": 0.1,
+        "modality_types": ["lidar", "camera", "gnss", "imu", "v2x"],
+        "description": "Performs tightly-coupled fusion of heterogeneous sensor data"
+      },
+      "sa_bft": {
+        "name": "Semantic-Aware Byzantine Fault-Tolerant Consensus",
+        "parameters": "2.1M", 
+        "embed_dim": 256,
+        "max_peers": 20,
+        "max_iterations": 3,
+        "num_heads": 8,
+        "dropout": 0.1,
+        "description": "Ensures reliable consensus among distributed vehicles"
+      },
+      "ktf_transformer": {
+        "name": "Kinodynamic Trajectory Forecaster Transformer",
+        "parameters": "5.3M",
+        "d_model": 256,
+        "nhead": 8,
+        "num_encoder_layers": 4,
+        "num_modes": 6,
+        "horizon": 30,
+        "dropout": 0.1,
+        "description": "Generates safe and dynamically feasible trajectory predictions"
+      }
+    }
+  },
+  "training_config": {
+    "optimizer": "AdamW",
+    "learning_rate": 1e-4,
+    "weight_decay": 0.01,
+    "batch_size": 32,
+    "max_epochs": 100,
+    "warmup_steps": 1000,
+    "gradient_clip_norm": 1.0,
+    "scheduler": "CosineAnnealingLR"
+  },
+  "data_config": {
+    "input_modalities": {
+      "lidar_points": {
+        "shape": "[N_pts, 4]",
+        "description": "LiDAR point cloud (x, y, z, intensity)",
+        "typical_size": "10000-50000 points"
+      },
+      "camera_keypoints": {
+        "shape": "[N_kp, 130]", 
+        "description": "Camera keypoint features (2D coordinates + 128D descriptor)",
+        "typical_size": "500-2000 keypoints"
+      },
+      "gnss": {
+        "shape": "[3]",
+        "description": "GPS coordinates (latitude, longitude, altitude)"
+      },
+      "imu": {
+        "shape": "[T, 6]",
+        "description": "IMU sequence (3-axis acceleration + 3-axis gyroscope)",
+        "typical_length": "10-50 timesteps"
+      },
+      "v2x_states": {
+        "shape": "[M, 8]",
+        "description": "V2X vehicle state vectors (position, velocity, heading, etc.)",
+        "typical_size": "5-20 vehicles"
+      }
+    },
+    "output_format": {
+      "trajectories": {
+        "shape": "[6, 30, 2]",
+        "description": "Multi-modal trajectory predictions (6 modes × 30 timesteps × 2D coordinates)"
+      },
+      "mode_probabilities": {
+        "shape": "[6]",
+        "description": "Confidence scores for each trajectory mode"
+      },
+      "collision_risk": {
+        "shape": "[1]",
+        "description": "Collision risk probability [0, 1]"
+      },
+      "intentions": {
+        "shape": "[4]",
+        "description": "Intention classification [straight, left, right, stop]"
+      }
+    }
+  },
+  "performance_targets": {
+    "safety_metrics": {
+      "collision_rate": "< 0.5%",
+      "time_to_collision": "> 2.5s",
+      "safety_score": "> 0.995"
+    },
+    "system_performance": {
+      "response_time": "< 500ms",
+      "v2x_success_rate": "> 90%",
+      "consensus_confidence": "> 0.8"
+    },
+    "model_accuracy": {
+      "average_displacement_error": "< 1.0m",
+      "final_displacement_error": "< 2.0m",
+      "mode_prediction_accuracy": "> 85%"
+    }
+  },
+  "deployment_config": {
+    "supported_devices": ["cpu", "cuda", "mps"],
+    "precision_modes": ["fp32", "fp16"],
+    "batch_sizes": [1, 4, 8, 16, 32],
+    "memory_requirements": {
+      "model_parameters": "~62MB (fp32)",
+      "runtime_memory": "~3.2MB per batch"
+    },
+    "inference_latency": {
+      "mmf_gnn": "~80ms",
+      "sa_bft": "~60ms", 
+      "ktf_transformer": "~48ms",
+      "total_pipeline": "~250ms"
+    }
+  }
+}

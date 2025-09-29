@@ -1,0 +1,10 @@
+{
+  "best_epoch": 13,
+  "best_val_loss": 29.91,
+  "final_overfitting_ratio": 3.3950398552745438,
+  "max_overfitting_ratio": 3.457920789226138,
+  "train_loss_reduction_percent": 91.87419029797034,
+  "val_loss_reduction_percent": 57.10128707330722,
+  "overfitting_start_epoch": 11,
+  "convergence_epoch": 23
+}

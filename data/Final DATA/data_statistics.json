@@ -1,0 +1,90 @@
+{
+  "dataset_info": {
+    "name": "NexusFusion Training Dataset",
+    "version": "1.0",
+    "total_samples": 5000,
+    "train_samples": 4000,
+    "val_samples": 1000,
+    "data_split_ratio": 0.2,
+    "creation_date": "2025-01-16",
+    "description": "Multi-modal autonomous driving dataset with LiDAR, camera, GNSS, IMU, V2X data"
+  },
+  "data_modalities": {
+    "lidar": {
+      "shape": [512, 4],
+      "description": "Point cloud data [x, y, z, intensity]",
+      "range": "±100m",
+      "resolution": "0.1m"
+    },
+    "keypoints": {
+      "shape": [64, 130],
+      "description": "Camera keypoints features",
+      "type": "CNN extracted features"
+    },
+    "gnss": {
+      "shape": [3],
+      "description": "GPS coordinates [lat, lon, alt]",
+      "accuracy": "±10cm"
+    },
+    "imu": {
+      "shape": [10, 6],
+      "description": "IMU sensor data [acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z]",
+      "frequency": "100Hz"
+    },
+    "obu": {
+      "shape": [4],
+      "description": "On-Board Unit features"
+    },
+    "v2v_states": {
+      "shape": [5, 8],
+      "description": "Vehicle-to-Vehicle communication states"
+    },
+    "peer_feat": {
+      "shape": [5, 256],
+      "description": "Peer vehicle features"
+    },
+    "participants": {
+      "shape": [10, 5],
+      "description": "Traffic participants information"
+    },
+    "agent_hist": {
+      "shape": [1, 10, 4],
+      "description": "Agent historical trajectory [x, y, vx, vy]"
+    },
+    "map_poly": {
+      "shape": [20, 10, 2],
+      "description": "Map polylines [x, y]"
+    },
+    "traj_modes": {
+      "shape": [6, 30, 2],
+      "description": "Target trajectory modes [x, y]"
+    }
+  },
+  "augmentation_config": {
+    "enabled": true,
+    "probability": 0.5,
+    "techniques": {
+      "lidar_noise": {
+        "enabled": true,
+        "noise_scale": 0.01,
+        "description": "Gaussian noise injection"
+      },
+      "gnss_noise": {
+        "enabled": true,
+        "noise_scale": 0.1,
+        "description": "GPS positioning noise (10cm)"
+      },
+      "imu_noise": {
+        "enabled": true,
+        "noise_scale": 0.05,
+        "description": "IMU sensor noise"
+      }
+    }
+  },
+  "file_structure": {
+    "batch_files": 50,
+    "samples_per_batch": 100,
+    "file_format": "pickle",
+    "total_size_mb": 2500
+  }
+}
