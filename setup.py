@@ -24,7 +24,7 @@ setup(
     name="nexusfusion",
     version="1.0.0",
     author="NexusFusion Research Team",
-    author_email="nexusfusion-team@example.com",
+    author_email="admin@gy4k.com",
     description="Multi-Modal Fusion Architecture for Verifiably Safe Cooperative Driving",
     long_description=long_description,
     long_description_content_type="text/markdown",

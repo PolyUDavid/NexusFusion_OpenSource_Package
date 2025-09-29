@@ -290,9 +290,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For questions, issues, or collaboration opportunities:
 
-- **Email**: nexusfusion-team@example.com
-- **GitHub Issues**: [https://github.com/nexusfusion/NexusFusion/issues](https://github.com/nexusfusion/NexusFusion/issues)
-- **Documentation**: [https://nexusfusion.readthedocs.io](https://nexusfusion.readthedocs.io)
+- **Email**: admin@gy4k.com
+- **GitHub Issues**: [https://github.com/PolyUDavid/NexusFusion_OpenSource_Package/issues](https://github.com/PolyUDavid/NexusFusion_OpenSource_Package/issues)
+- **Documentation**: [https://github.com/PolyUDavid/NexusFusion_OpenSource_Package](https://github.com/PolyUDavid/NexusFusion_OpenSource_Package)
 
 ---
 
