@@ -3,7 +3,7 @@
     "paper_title": "NexusFusion: A Spatio-Temporal Point Cloud Fusion Architecture for Verifiably Safe Cooperative Driving",
     "authors": "NexusFusion Research Team",
     "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)",
-    "experiment_date": "2024-09-24",
+    "experiment_date": "2025-09-24",
     "total_experiments": 16,
     "total_data_points": 8340,
     "simulation_platform": "Custom NexusFusion Simulator v1.0"
